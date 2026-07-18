@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fit Track - Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="products.css">
+</head>
+<body>
+
+<header id="header">
+    <div class="header-container">
+        <a href="home.html" class="logo">FIT <span class="logo-flash"><i class="fa-solid fa-bolt"></i></span> TRACK</a>
+
+        <div class="header-navigation-block">
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="products.html" class="active">Products <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="equipment.html">Equipment</a></li>
+                            <li><a href="supplements.html">Supplements</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Categories <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="strength.html">Strength</a></li>
+                            <li><a href="cardio.html">Cardio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search products...">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <a href="login.html" class="icon-link"><i class="fa-regular fa-user"></i></a>
+                <a href="cart.html" class="icon-link"><i class="fa-solid fa-bag-shopping"></i></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN CONTENT AREA -->
+<main class="products-page-wrapper">
+
+    <h1 class="page-title">PRODUCTS</h1>
+
+    <div class="products-layout-grid">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="categories">
+                <h3>CATEGORIES</h3>
+                <ul>
+                    <li class="selected">All-products</li>
+                    <li>Protein</li>
+                    <li>Pre-workout</li>
+                    <li>Creatine</li>
+                    <li>Vitamins & Health</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+
+            <div class="filter">
+                <h3>FILTER BY</h3>
+                <h4>Price</h4>
+                <input type="range" min="0" max="300">
+                <div class="price-range">
+                    <span>$0</span>
+                    <span>$300</span>
+                </div>
+
+                <div class="filter-dropdown">
+                    <span>Brand</span> <i class="fa-solid fa-chevron-down"></i>
+                </div>
+
+                <div class="filter-dropdown">
+                    <span>Flavour</span> <i class="fa-solid fa-chevron-down"></i>
+                </div>
+
+                <button class="clear-btn">CLEAR FILTERS</button>
+            </div>
+        </aside>
+
+        <!-- PRODUCTS PANEL -->
+        <section class="products-container">
+            <div class="top-bar">
+                <div>
+                    <p class="breadcrumbs">Home > Products</p>
+                    <h3>ALL PRODUCTS</h3>
+                    <span class="results-count">Showing 1-12 of 48 results</span>
+                </div>
+
+                <label class="sort-label">
+                    <select>
+                        <option>Sort by: Featured</option>
+                        <option>Price Low-High</option>
+                        <option>Price High-Low</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="images/WheyNoBg.png" alt="Protein">
+                    <h4>Cellucor COR-Performance Whey - 4 lbs</h4>
+                    <p>$59.99</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/wheyChocolate.png" alt="Protein">
+                    <h4>Integralmédica Nutri Whey Protein - 300g</h4>
+                    <p>$7.99</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/waterbottle.png" alt="Shaker">
+                    <h4>Powcan Protein Shaker Cup</h4>
+                    <p>$14.99</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/creatine.png" alt="Creatine">
+                    <h4>Calvexa Micronized Creatine</h4>
+                    <p>$16.99</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/standard.png" alt="Protein">
+                    <h4>Optimum Nutrition Gold Standard Whey</h4>
+                    <p>$42.00</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/ultimate.png" alt="Preworkout">
+                    <h4>Cellucor C4 Ultimate Pre-Workout</h4>
+                    <p>$39.99</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer>
+    <div class="footer-item">
+        <i class="fa-solid fa-truck-fast"></i>
+        <div>
+            <h4>FAST AND FREE SHIPPING</h4>
+            <p>On orders over $75</p>
+        </div>
+    </div>
+
+    <div class="footer-item">
+        <i class="fa-solid fa-shield"></i>
+        <div>
+            <h4>100% AUTHENTIC</h4>
+            <p>Original products only</p>
+        </div>
+    </div>
+
+    <div class="footer-item">
+        <i class="fa-solid fa-rotate-left"></i>
+        <div>
+            <h4>EASY RETURNS</h4>
+            <p>30-day return policy</p>
+        </div>
+    </div>
+
+    <div class="footer-item">
+        <i class="fa-solid fa-headset"></i>
+        <div>
+            <h4>SUPPORT</h4>
+            <p>We're here to help</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
