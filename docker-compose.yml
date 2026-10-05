@@ -2,7 +2,10 @@ version: '3.8'
 services:
   web:
     image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - .:/usr/share/nginx/html
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          mem_limit: 512M
+    cpus: '0.5'
+    mem_limit: 512M
