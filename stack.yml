@@ -2,3 +2,5 @@ version: '3.8'
 services:
   web:
     image: nginx:latest
+    cpus: '0.5'
+    mem_limit: 512M
