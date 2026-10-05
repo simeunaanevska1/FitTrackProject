@@ -2,10 +2,5 @@ version: '3.8'
 services:
   web:
     image: nginx:latest
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          mem_limit: 512M
     cpus: '0.5'
     mem_limit: 512M
