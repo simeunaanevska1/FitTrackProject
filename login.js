@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
             true
         );
 
-        // Change this if your home page has a different filename.
+
         setTimeout(() => {
             window.location.href = "index.html";
         }, 1000);
