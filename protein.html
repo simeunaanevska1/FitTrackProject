@@ -51,37 +51,43 @@
                 <h3>Categories</h3>
                 <ul>
                     <li><a href="products.html">All-products</a></li>
-                    <li class="selected"><a href="protein.html" aria-current="page">Protein</a></li>
-                    <li><a href="pre-workout.html">Pre-workout</a></li>
-                    <li><a href="creatine.html">Creatine</a></li>
-                    <li><a href="vitamins.html">Vitamins &amp; Health</a></li>
-                    <li><a href="accessories.html">Accessories</a></li>
+                    <li class="selected"><a href="protein.html" data-category="protein" aria-current="page">Protein</a></li>
+                    <li><a href="products.html?category=pre-workout">Pre-workout</a></li>
+                    <li><a href="products.html?category=creatine">Creatine</a></li>
+                    <li><a href="products.html?category=vitamins">Vitamins &amp; Health</a></li>
+                    <li><a href="products.html?category=accessories">Accessories</a></li>
                 </ul>
             </div>
 
             <div class="filter">
                 <h3>Filter by</h3>
                 <label class="filter-heading" for="price-range">Price</label>
-                <input id="price-range" type="range" min="0" max="150" value="75">
-                <div class="price-range"><span>$0</span><span>$150</span></div>
+                <input id="price-range" type="range" min="0" max="150" step="1" value="150">
+                <div class="price-range"><span>$0</span><span id="price-maximum">$150</span></div>
 
                 <details class="filter-dropdown">
                     <summary>Brand</summary>
-                    <label><input type="checkbox"> Cellucor</label>
-                    <label><input type="checkbox"> Optimum Nutrition</label>
-                    <label><input type="checkbox"> Dymatize</label>
-                    <label><input type="checkbox"> Integralmedica</label>
+                    <label><input type="checkbox" name="brand" value="cellucor"> Cellucor</label>
+                    <label><input type="checkbox" name="brand" value="optimum"> Optimum Nutrition</label>
+                    <label><input type="checkbox" name="brand" value="dymatize"> Dymatize</label>
+                    <label><input type="checkbox" name="brand" value="integralmedica"> Integralmedica</label>
+                    <label><input type="checkbox" name="brand" value="apex"> Apex Labs</label>
+                    <label><input type="checkbox" name="brand" value="pronutra"> ProNutra</label>
+                    <label><input type="checkbox" name="brand" value="titan"> Titan Science</label>
+                    <label><input type="checkbox" name="brand" value="vanguard"> Vanguard</label>
+                    <label><input type="checkbox" name="brand" value="biofuel"> BioFuel</label>
+                    <label><input type="checkbox" name="brand" value="zenith"> Zenith</label>
                 </details>
 
                 <details class="filter-dropdown">
                     <summary>Flavour</summary>
-                    <label><input type="checkbox"> Chocolate</label>
-                    <label><input type="checkbox"> Vanilla</label>
-                    <label><input type="checkbox"> Strawberry</label>
-                    <label><input type="checkbox"> Unflavoured</label>
+                    <label><input type="checkbox" name="flavour" value="chocolate"> Chocolate</label>
+                    <label><input type="checkbox" name="flavour" value="vanilla"> Vanilla</label>
+                    <label><input type="checkbox" name="flavour" value="strawberry"> Strawberry</label>
+                    <label><input type="checkbox" name="flavour" value="unflavoured"> Unflavoured</label>
                 </details>
 
-                <button class="clear-btn" type="reset" onclick="this.closest('.sidebar').querySelectorAll('input[type=checkbox]').forEach(input => input.checked = false); document.getElementById('price-range').value = 75;">Clear filters</button>
+                <button class="clear-btn" id="clear-filters" type="button">Clear filters</button>
             </div>
         </aside>
 
@@ -105,7 +111,7 @@
             </div>
 
             <div class="products-grid">
-                <article class="product-card">
+                <article class="product-card" data-category="protein" data-brand="apex" data-flavour="vanilla" data-price="38.50">
                     <a href="#" class="product-image-link" aria-label="View Cellucor COR-Performance Whey">
                         <img src="images/whey1-removebg-preview.png" alt="Cellucor COR-Performance Whey">
                     </a>
@@ -113,7 +119,7 @@
                     <p class="product-price">$38.50</p>
                 </article>
 
-                <article class="product-card">
+                <article class="product-card" data-category="protein" data-brand="pronutra" data-flavour="unflavoured" data-price="52.99">
                     <a href="#" class="product-image-link" aria-label="View Integralmedica Nutri Whey">
                         <img src="images/whey2-removebg-preview.png" alt="Integralmedica Nutri Whey protein pouch">
                     </a>
@@ -121,7 +127,7 @@
                     <p class="product-price">$52.99</p>
                 </article>
 
-                <article class="product-card">
+                <article class="product-card" data-category="protein" data-brand="titan" data-flavour="strawberry" data-price="46.75">
                     <a href="#" class="product-image-link" aria-label="View Optimum Nutrition Gold Standard Whey">
                         <img src="images/whey5-removebg-preview.png" alt="Optimum Nutrition Gold Standard Whey protein tub">
                     </a>
@@ -129,7 +135,7 @@
                     <p class="product-price">$46.75</p>
                 </article>
 
-                <article class="product-card">
+                <article class="product-card" data-category="protein" data-brand="vanguard" data-flavour="chocolate" data-price="64.99">
                     <a href="#" class="product-image-link" aria-label="View protein powder">
                         <img src="images/whey6-removebg-preview.png" alt="Protein powder product">
                     </a>
@@ -137,23 +143,25 @@
                     <p class="product-price">$64.99</p>
                 </article>
 
-                <div class="product-card">
+                <div class="product-card" data-category="protein" data-brand="integralmedica" data-flavour="chocolate" data-price="7.99">
                     <img src="images/wheyChocolate.png" alt="Protein">
                     <h4>Integralmédica Nutri Whey Protein - 300g</h4>
                     <p>$7.99</p>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-category="protein" data-brand="biofuel" data-flavour="unflavoured" data-price="29.99">
                     <img src="images/whey4-removebg-preview.png" alt="Protein">
                     <h4>BioFuel Native Whey Concentrate - 1 kg</h4>
                     <p>$29.99</p>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-category="protein" data-brand="zenith" data-flavour="vanilla" data-price="18.50">
                     <img src="images/whey3-removebg-preview.png" alt="Protein">
                     <h4>Zenith Performance Plant & Whey Blend - 450g</h4>
                     <p>$18.50</p>
                 </div>
+
+                <p id="no-results" style="display: none; color: #ccc;">No products match the selected filters.</p>
             </div>
         </section>
     </div>
@@ -177,5 +185,8 @@
         <div><h4>Support</h4><p>We're here to help</p></div>
     </div>
 </footer>
+
+<script src="products.js"></script>
+
 </body>
 </html>
