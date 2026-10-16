@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fit Track - Products</title>
+    <title>Fit Track - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
 <header id="header">
     <div class="header-container">
-        <a href="index.html" class="logo">FIT <span class="logo-flash"><i class="fa-solid fa-bolt"></i></span> TRACK</a>
+        <!-- Left Side: Logo & Login Tab -->
+        <div class="header-left-group" style="display: flex; align-items: center; gap: 25px;">
+            <a href="index.html" class="logo">FIT <span class="logo-flash"><i class="fa-solid fa-bolt"></i></span> TRACK</a>
+            <a href="login.html" class="nav-login-link active" style="color: #f59e0b; text-decoration: none; font-weight: 500; font-size: 0.95rem;">Login / Register</a>
+        </div>
 
         <div class="header-navigation-block">
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li class="dropdown">
-                        <a href="products.html" class="active">Products <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="equipment.html">Equipment</a></li>
-                            <li><a href="supplements.html">Supplements</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="products.html">Products</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -34,8 +33,12 @@
                     <input type="text" placeholder="Search products...">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
-                <a href="login.html" class="icon-link"><i class="fa-regular fa-user"></i></a>
-                <a href="cart.html" class="icon-link"><i class="fa-solid fa-bag-shopping"></i></a>
+
+                <!-- Sliding Cart Button Trigger -->
+                <button id="cart-toggle-btn" class="icon-link" type="button" style="background:none; border:none; cursor:pointer; position:relative;">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </button>
             </div>
         </div>
     </div>
@@ -134,21 +137,13 @@
 </div>
 
 <footer>
-
     <div class="footer-item">
-
         <i class="fa-solid fa-truck-fast"></i>
-
         <div>
-
             <h4>FAST AND FREE SHIPPING</h4>
-
             <p>On orders over $75</p>
-
         </div>
-
     </div>
-
     <div class="footer-item">
         <i class="fa-solid fa-shield"></i>
         <div>
@@ -156,36 +151,68 @@
             <p>Original products only</p>
         </div>
     </div>
-
     <div class="footer-item">
-
         <i class="fa-solid fa-rotate-left"></i>
-
         <div>
-
             <h4>EASY RETURNS</h4>
-
             <p>30-day return policy</p>
-
         </div>
-
     </div>
-
     <div class="footer-item">
-
         <i class="fa-solid fa-headset"></i>
-
         <div>
-
             <h4>SUPPORT</h4>
-
             <p>We're here to help</p>
-
         </div>
-
     </div>
-
 </footer>
+
+<!-- Sliding Cart Drawer Modal -->
+<div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h2>Your Shopping Cart</h2>
+            <button id="close-cart" class="close-cart-btn">&times;</button>
+        </div>
+        <div id="cart-items-container" class="cart-items-container">
+            <p class="empty-cart-msg">Your cart is currently empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <a href="cart.html" class="checkout-btn" style="text-align: center; text-decoration: none; display: block;">Proceed to Checkout</a>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Sidebar Control Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartToggleBtn = document.getElementById('cart-toggle-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart');
+
+        if (cartToggleBtn && cartModal && closeCartBtn) {
+            cartToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                cartModal.style.display = 'flex';
+            });
+
+            closeCartBtn.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+
 <script src="login.js"></script>
 </body>
 </html>

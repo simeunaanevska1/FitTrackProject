@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Fit Track - Products</title>
+	<title>Fit Track - Home</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<link rel="stylesheet" href="index.css">
@@ -16,14 +16,8 @@
 		<div class="header-navigation-block">
 			<nav>
 				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li class="dropdown">
-						<a href="products.html" class="active">Products <i class="fa-solid fa-chevron-down"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="equipment.html">Equipment</a></li>
-							<li><a href="supplements.html">Supplements</a></li>
-						</ul>
-					</li>
+					<li><a href="index.html" class="active">Home</a></li>
+					<li><a href="products.html">Products</a></li>
 					<li><a href="about.html">About Us</a></li>
 					<li><a href="contact.html">Contact</a></li>
 				</ul>
@@ -35,26 +29,273 @@
 					<button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 				</div>
 				<a href="login.html" class="icon-link"><i class="fa-regular fa-user"></i></a>
-				<a href="cart.html" class="icon-link"><i class="fa-solid fa-bag-shopping"></i></a>
+
+				<!-- Sliding Cart Trigger -->
+				<button id="cart-toggle-btn" class="icon-link" type="button">
+					<i class="fa-solid fa-bag-shopping"></i>
+					<span id="cart-count">0</span>
+				</button>
 			</div>
 		</div>
 	</div>
 </header>
-<div id="body">
-		<div id="background">
-			<div>
-				<div class="about">
-					<h1>Forge <br>
-						your limits</h1>
-				</div>
-			</div>
-				<div class="about2">
-					<h3>Build strength. Transform your body. Become your strongest.</h3>
-				</div>
-			<div class="box">
-				<a class="shop" href="products.html">Shop now</a>
+
+<main id="body">
+	<section class="hero-section">
+		<div class="hero-content">
+			<span class="badge-pill">WELCOME TO FIT TRACK</span>
+			<h1 class="hero-title">FORGE <br><span class="highlight">YOUR LIMITS</span></h1>
+			<p class="hero-subtitle">Build strength. Transform your body. Become your strongest version.</p>
+			<div class="hero-actions">
+				<a class="shop-btn" href="products.html">Shop Now</a>
 			</div>
 		</div>
+	</section>
+</main>
+
+<!-- Sliding Cart Drawer Modal -->
+<div id="cart-modal" class="cart-modal">
+	<div class="cart-content">
+		<div class="cart-header">
+			<h2>Your Shopping Cart</h2>
+			<button id="close-cart" class="close-cart-btn">&times;</button>
+		</div>
+		<div id="cart-items-container" class="cart-items-container">
+			<p class="empty-cart-msg">Your cart is currently empty.</p>
+		</div>
+		<div class="cart-footer">
+			<div class="cart-total-row">
+				<span>Total:</span>
+				<span id="cart-total-price">$0.00</span>
+			</div>
+			<a href="cart.html" class="checkout-btn" style="text-align: center; text-decoration: none; display: block;">Proceed to Checkout</a>
+		</div>
 	</div>
+</div>
+
+<footer>
+	<div class="footer-item">
+		<i class="fa-solid fa-truck-fast"></i>
+		<div>
+			<h4>FAST AND FREE SHIPPING</h4>
+			<p>On orders over $75</p>
+		</div>
+	</div>
+
+	<div class="footer-item">
+		<i class="fa-solid fa-shield"></i>
+		<div>
+			<h4>100% AUTHENTIC</h4>
+			<p>Original products only</p>
+		</div>
+	</div>
+
+	<div class="footer-item">
+		<i class="fa-solid fa-rotate-left"></i>
+		<div>
+			<h4>EASY RETURNS</h4>
+			<p>30-day return policy</p>
+		</div>
+	</div>
+
+	<div class="footer-item">
+		<i class="fa-solid fa-headset"></i>
+		<div>
+			<h4>SUPPORT</h4>
+			<p>We're here to help</p>
+		</div>
+	</div>
+</footer>
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const searchInput = document.getElementById('search-input');
+		const priceRange = document.getElementById('price-range');
+		const priceMaximum = document.getElementById('price-maximum');
+		const clearBtn = document.getElementById('clear-filters');
+		const categoryLinks = document.querySelectorAll('.category-link');
+		const brandCheckboxes = document.querySelectorAll('input[name="brand"]');
+		const flavourCheckboxes = document.querySelectorAll('input[name="flavour"]');
+		const productCards = document.querySelectorAll('.product-card');
+		const noResultsMsg = document.getElementById('no-results');
+
+		// Cart Elements
+		const cartToggleBtn = document.getElementById('cart-toggle-btn');
+		const cartModal = document.getElementById('cart-modal');
+		const closeCartBtn = document.getElementById('close-cart');
+		const cartItemsContainer = document.getElementById('cart-items-container');
+		const cartCountSpan = document.getElementById('cart-count');
+		const cartTotalPriceSpan = document.getElementById('cart-total-price');
+		const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+		// Load cart from localStorage if it exists
+		let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
+		let currentCategory = 'all';
+
+		// Initial UI sync for cart badge
+		updateCartUI();
+
+		function filterProducts() {
+			if (!searchInput) return;
+			const searchTerm = searchInput.value.toLowerCase().trim();
+			const maxPrice = parseFloat(priceRange.value);
+
+			const selectedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+			const selectedFlavours = Array.from(flavourCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+			let visibleCount = 0;
+
+			productCards.forEach(card => {
+				const category = card.getAttribute('data-category');
+				const brand = card.getAttribute('data-brand');
+				const flavour = card.getAttribute('data-flavour');
+				const price = parseFloat(card.getAttribute('data-price'));
+				const titleElement = card.querySelector('h4') || card.querySelector('h3');
+				const titleText = titleElement ? titleElement.textContent.toLowerCase() : '';
+
+				const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+				const matchesSearch = (searchTerm === '' || titleText.includes(searchTerm));
+				const matchesPrice = (price <= maxPrice);
+				const matchesBrand = (selectedBrands.length === 0 || selectedBrands.includes(brand));
+				const matchesFlavour = (selectedFlavours.length === 0 || selectedFlavours.includes(flavour));
+
+				if (matchesCategory && matchesSearch && matchesPrice && matchesBrand && matchesFlavour) {
+					card.style.display = 'flex';
+					visibleCount++;
+				} else {
+					card.style.display = 'none';
+				}
+			});
+
+			if (noResultsMsg) {
+				noResultsMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
+			}
+		}
+
+		if (searchInput) searchInput.addEventListener('input', filterProducts);
+		if (priceRange) {
+			priceRange.addEventListener('input', (e) => {
+				priceMaximum.textContent = '\$' + e.target.value;
+				filterProducts();
+			});
+		}
+
+		categoryLinks.forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				categoryLinks.forEach(l => l.parentElement.classList.remove('selected'));
+				link.parentElement.classList.add('selected');
+				currentCategory = link.getAttribute('data-category');
+				filterProducts();
+			});
+		});
+
+		brandCheckboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+		flavourCheckboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+
+		if (clearBtn) {
+			clearBtn.addEventListener('click', () => {
+				searchInput.value = '';
+				priceRange.value = 150;
+				priceMaximum.textContent = '\$150';
+				brandCheckboxes.forEach(cb => cb.checked = false);
+				flavourCheckboxes.forEach(cb => cb.checked = false);
+				currentCategory = 'all';
+				categoryLinks.forEach(l => l.parentElement.classList.remove('selected'));
+				const allCat = document.querySelector('.category-link[data-category="all"]');
+				if (allCat) allCat.parentElement.classList.add('selected');
+				filterProducts();
+			});
+		}
+
+		// Cart Functionality & LocalStorage Sync
+		function updateCartUI() {
+			if (!cartCountSpan) return;
+
+			cartCountSpan.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+			// Save to localStorage so cart.html (checkout) can read it
+			localStorage.setItem('fitTrackCart', JSON.stringify(cart));
+
+			if (cart.length === 0) {
+				cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Your cart is currently empty.</p>';
+				cartTotalPriceSpan.textContent = '\$0.00';
+				return;
+			}
+
+			let html = '';
+			let total = 0;
+
+			cart.forEach((item, index) => {
+				const itemTotal = item.price * item.quantity;
+				total += itemTotal;
+				html += `
+                <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #1f2937; padding-bottom: 10px;">
+                    <div class="cart-item-info">
+                        <h4 style="font-size: 0.85rem; color: #fff; margin-bottom: 3px;">${item.name}</h4>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                    <div class="cart-item-actions" style="display: flex; align-items: center; gap: 8px;">
+                        <button onclick="changeQty(${index}, -1)" style="background: #1f2937; color: #fff; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer;">-</button>
+                        <span style="font-size: 0.85rem;">${item.quantity}</span>
+                        <button onclick="changeQty(${index}, 1)" style="background: #1f2937; color: #fff; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer;">+</button>
+                        <button class="remove-btn" onclick="removeItem(${index})" style="background: transparent; color: #ef4444; border: none; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+			});
+
+			cartItemsContainer.innerHTML = html;
+			cartTotalPriceSpan.textContent = '\$' + total.toFixed(2);
+		}
+
+		window.changeQty = function(index, delta) {
+			cart[index].quantity += delta;
+			if (cart[index].quantity <= 0) {
+				cart.splice(index, 1);
+			}
+			updateCartUI();
+		}
+
+		window.removeItem = function(index) {
+			cart.splice(index, 1);
+			updateCartUI();
+		}
+
+		addToCartButtons.forEach(btn => {
+			btn.addEventListener('click', () => {
+				const name = btn.getAttribute('data-name');
+				const price = parseFloat(btn.getAttribute('data-price'));
+				const img = btn.getAttribute('data-img') || 'images/standard.png';
+
+				const existing = cart.find(item => item.name === name);
+				if (existing) {
+					existing.quantity++;
+				} else {
+					cart.push({ name, price, quantity: 1, img });
+				}
+				updateCartUI();
+				if (cartModal) cartModal.style.display = 'flex';
+			});
+		});
+
+		if (cartToggleBtn && cartModal && closeCartBtn) {
+			cartToggleBtn.addEventListener('click', (e) => {
+				e.preventDefault();
+				cartModal.style.display = 'flex';
+			});
+
+			closeCartBtn.addEventListener('click', () => {
+				cartModal.style.display = 'none';
+			});
+
+			window.addEventListener('click', (e) => {
+				if (e.target === cartModal) {
+					cartModal.style.display = 'none';
+				}
+			});
+		}
+	});
+</script>
+
 </body>
 </html>

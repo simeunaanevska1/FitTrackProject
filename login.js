@@ -154,9 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
             true
         );
 
-
+        // Change "index.html" to "profile.html" here:
         setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "profile.html";
         }, 1000);
     });
 

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="products.css">
-
 </head>
 <body>
 
@@ -18,13 +17,7 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li class="dropdown">
-                        <a href="products.html" class="active">Products <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="equipment.html">Equipment</a></li>
-                            <li><a href="supplements.html">Supplements</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="products.html" class="active">Products</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -32,46 +25,46 @@
 
             <div class="header-right">
                 <div class="search-box">
-                    <input type="text" placeholder="Search products...">
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" id="search-input" placeholder="Search products...">
+                    <button type="submit" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <a href="login.html" class="icon-link"><i class="fa-regular fa-user"></i></a>
-                <a href="cart.html" class="icon-link"><i class="fa-solid fa-bag-shopping"></i></a>
+                <button id="cart-toggle-btn" class="icon-link cart-btn-trigger"><i class="fa-solid fa-bag-shopping"></i><span id="cart-count">0</span></button>
             </div>
         </div>
     </div>
 </header>
 
 <main class="products-page-wrapper">
-
-    <h1 class="page-title">PRODUCTS</h1>
+    <div class="page-header-row">
+        <h1 class="page-title">Fitness Store</h1>
+        <p class="page-subtitle">Explore our high-performance equipment and supplements.</p>
+    </div>
 
     <div class="products-layout-grid">
 
-
+        <!-- Sidebar / Filters -->
         <aside class="sidebar">
-
             <div class="categories">
                 <h3>CATEGORIES</h3>
-
                 <ul>
                     <li class="selected">
-                        <a href="products.html" data-category="all">All-products</a>
+                        <a href="#" class="category-link" data-category="all">All Products</a>
                     </li>
                     <li>
-                        <a href="products.html?category=protein" data-category="protein">Protein</a>
+                        <a href="#" class="category-link" data-category="protein">Protein</a>
                     </li>
                     <li>
-                        <a href="products.html?category=pre-workout" data-category="pre-workout">Pre-workout</a>
+                        <a href="#" class="category-link" data-category="pre-workout">Pre-workout</a>
                     </li>
                     <li>
-                        <a href="products.html?category=creatine" data-category="creatine">Creatine</a>
+                        <a href="#" class="category-link" data-category="creatine">Creatine</a>
                     </li>
                     <li>
-                        <a href="products.html?category=vitamins" data-category="vitamins">Vitamins &amp; Health</a>
+                        <a href="#" class="category-link" data-category="vitamins">Vitamins &amp; Health</a>
                     </li>
                     <li>
-                        <a href="products.html?category=accessories" data-category="accessories">Accessories</a>
+                        <a href="#" class="category-link" data-category="accessories">Accessories</a>
                     </li>
                 </ul>
             </div>
@@ -80,30 +73,19 @@
                 <h3>FILTER BY</h3>
 
                 <div class="price-filter">
-                    <label class="filter-heading" for="price-range">Price</label>
-
-                    <input
-                            id="price-range"
-                            type="range"
-                            min="0"
-                            max="150"
-                            step="1"
-                            value="150"
-                    >
-
+                    <label class="filter-heading" for="price-range">Max Price</label>
+                    <input id="price-range" type="range" min="0" max="150" step="1" value="150">
                     <div class="price-range">
-                        <span>$0</span>
-                        <span id="price-maximum">$150</span>
+                        <span>\$0</span>
+                        <span id="price-maximum">\$150</span>
                     </div>
                 </div>
 
-                <details class="filter-dropdown">
+                <details class="filter-dropdown" open>
                     <summary>Brand</summary>
-
                     <div class="filter-options">
                         <label><input type="checkbox" name="brand" value="cellucor"> Cellucor</label>
                         <label><input type="checkbox" name="brand" value="optimum"> Optimum Nutrition</label>
-                        <label><input type="checkbox" name="brand" value="dymatize"> Dymatize</label>
                         <label><input type="checkbox" name="brand" value="integralmedica"> Integralmedica</label>
                         <label><input type="checkbox" name="brand" value="apex"> Apex Labs</label>
                         <label><input type="checkbox" name="brand" value="pronutra"> ProNutra</label>
@@ -116,9 +98,8 @@
                     </div>
                 </details>
 
-                <details class="filter-dropdown">
+                <details class="filter-dropdown" open>
                     <summary>Flavour</summary>
-
                     <div class="filter-options">
                         <label><input type="checkbox" name="flavour" value="chocolate"> Chocolate</label>
                         <label><input type="checkbox" name="flavour" value="vanilla"> Vanilla</label>
@@ -127,112 +108,203 @@
                     </div>
                 </details>
 
-                <button class="clear-btn" id="clear-filters" type="button">
-                    CLEAR FILTERS
-                </button>
+                <button class="clear-btn" id="clear-filters" type="button">CLEAR FILTERS</button>
             </div>
-
         </aside>
 
-        <div class="products-grid">
+        <!-- Product Grid -->
+        <div class="products-grid" id="products-grid-container">
+
             <div class="product-card" data-category="protein" data-brand="cellucor" data-flavour="vanilla" data-price="59.99">
-                <img src="images/WheyNoBg.png" alt="Protein">
-                <h4>Cellucor COR-Performance Whey - 4 lbs</h4>
-                <p>$59.99</p>
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/WheyNoBg.png" alt="Protein"></div>
+                <div class="card-body">
+                    <h4>Cellucor COR-Performance Whey - 4 lbs</h4>
+                    <p class="desc">Fast-absorbing whey protein isolate blend for muscle recovery.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$59.99</span>
+                        <button class="add-to-cart-btn" data-name="Cellucor COR-Performance Whey - 4 lbs" data-price="59.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-card" data-category="protein" data-brand="integralmedica" data-flavour="chocolate" data-price="7.99">
-                <img src="images/wheyChocolate.png" alt="Protein">
-                <h4>Integralmédica Nutri Whey Protein - 300g</h4>
-                <p>$7.99</p>
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/wheyChocolate.png" alt="Protein"></div>
+                <div class="card-body">
+                    <h4>Integralmédica Nutri Whey Protein - 300g</h4>
+                    <p class="desc">High biological value protein supplement for mass gains.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$7.99</span>
+                        <button class="add-to-cart-btn" data-name="Integralmédica Nutri Whey Protein - 300g" data-price="7.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-card" data-category="accessories" data-brand="powcan" data-flavour="" data-price="14.99">
-                <img src="images/waterbottle.png" alt="Shaker">
-                <h4>Powcan Protein Shaker Cup</h4>
-                <p>$14.99</p>
+                <span class="badge">ACCESSORIES</span>
+                <div class="img-container"><img src="images/waterbottle.png" alt="Shaker"></div>
+                <div class="card-body">
+                    <h4>Powcan Protein Shaker Cup</h4>
+                    <p class="desc">Leak-proof mixing bottle with stainless steel wire whisk ball.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$14.99</span>
+                        <button class="add-to-cart-btn" data-name="Powcan Protein Shaker Cup" data-price="14.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-card" data-category="creatine" data-brand="calvexa" data-flavour="unflavoured" data-price="16.99">
-                <img src="images/creatine.png" alt="Creatine">
-                <h4>Calvexa Micronized Creatine</h4>
-                <p>$16.99</p>
+                <span class="badge">CREATINE</span>
+                <div class="img-container"><img src="images/creatine.png" alt="Creatine"></div>
+                <div class="card-body">
+                    <h4>Calvexa Micronized Creatine</h4>
+                    <p class="desc">Pure micronized monohydrate for maximum strength and power.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$16.99</span>
+                        <button class="add-to-cart-btn" data-name="Calvexa Micronized Creatine" data-price="16.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-card" data-category="protein" data-brand="optimum" data-flavour="unflavoured" data-price="42.00">
-                <img src="images/standard.png" alt="Protein">
-                <h4>Optimum Nutrition Gold Standard Whey</h4>
-                <p>$42.00</p>
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/standard.png" alt="Protein"></div>
+                <div class="card-body">
+                    <h4>Optimum Nutrition Gold Standard Whey</h4>
+                    <p class="desc">The world's gold standard premium whey protein powder.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$42.00</span>
+                        <button class="add-to-cart-btn" data-name="Optimum Nutrition Gold Standard Whey" data-price="42.00"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-card" data-category="pre-workout" data-brand="cellucor" data-flavour="unflavoured" data-price="34.99">
-                <img src="images/ultimate.png" alt="Pre-workout">
-                <h4>Cellucor C4 Ultimate Pre-Workout - 20 servings</h4>
-                <p>$34.99</p>
+                <span class="badge">PRE-WORKOUT</span>
+                <div class="img-container"><img src="images/ultimate.png" alt="Pre-workout"></div>
+                <div class="card-body">
+                    <h4>Cellucor C4 Ultimate Pre-Workout - 20 servings</h4>
+                    <p class="desc">Explosive energy, intense focus, and advanced endurance pump.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$34.99</span>
+                        <button class="add-to-cart-btn" data-name="Cellucor C4 Ultimate Pre-Workout - 20 servings" data-price="34.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
-            <article class="product-card" data-category="protein" data-brand="apex" data-flavour="unflavoured" data-price="38.50">
-                <a href="#" class="product-image-link" aria-label="View Cellucor COR-Performance Whey">
-                    <img src="images/whey1-removebg-preview.png" alt="Cellucor COR-Performance Whey">
-                </a>
-                <h3>Apex Labs Isolate Matrix - 2 lbs</h3>
-                <p class="product-price">$38.50</p>
-            </article>
+            <div class="product-card" data-category="protein" data-brand="apex" data-flavour="unflavoured" data-price="38.50">
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/whey1-removebg-preview.png" alt="Apex"></div>
+                <div class="card-body">
+                    <h4>Apex Labs Isolate Matrix - 2 lbs</h4>
+                    <p class="desc">Ultra-filtered isolate matrix for lean muscle development.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$38.50</span>
+                        <button class="add-to-cart-btn" data-name="Apex Labs Isolate Matrix - 2 lbs" data-price="38.50"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
+            </div>
 
-            <article class="product-card" data-category="protein" data-brand="pronutra" data-flavour="unflavoured" data-price="52.99">
-                <a href="#" class="product-image-link" aria-label="View Integralmedica Nutri Whey">
-                    <img src="images/whey2-removebg-preview.png" alt="Integralmedica Nutri Whey protein pouch">
-                </a>
-                <h3>ProNutra Clean Grass-Fed Whey - 2.5 lbs</h3>
-                <p class="product-price">$52.99</p>
-            </article>
+            <div class="product-card" data-category="protein" data-brand="pronutra" data-flavour="unflavoured" data-price="52.99">
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/whey2-removebg-preview.png" alt="ProNutra"></div>
+                <div class="card-body">
+                    <h4>ProNutra Clean Grass-Fed Whey - 2.5 lbs</h4>
+                    <p class="desc">Sustainably sourced grass-fed clean protein powder.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$52.99</span>
+                        <button class="add-to-cart-btn" data-name="ProNutra Clean Grass-Fed Whey - 2.5 lbs" data-price="52.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
+            </div>
 
-            <article class="product-card" data-category="protein" data-brand="titan" data-flavour="chocolate" data-price="46.75">
-                <a href="#" class="product-image-link" aria-label="View Optimum Nutrition Gold Standard Whey">
-                    <img src="images/whey5-removebg-preview.png" alt="Optimum Nutrition Gold Standard Whey protein tub">
-                </a>
-                <h3>Titan Science Hydrolite Whey - 2 lbs</h3>
-                <p class="product-price">$46.75</p>
-            </article>
+            <div class="product-card" data-category="protein" data-brand="titan" data-flavour="chocolate" data-price="46.75">
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/whey5-removebg-preview.png" alt="Titan"></div>
+                <div class="card-body">
+                    <h4>Titan Science Hydrolite Whey - 2 lbs</h4>
+                    <p class="desc">Hydrolyzed whey peptides for lightning-fast absorption.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$46.75</span>
+                        <button class="add-to-cart-btn" data-name="Titan Science Hydrolite Whey - 2 lbs" data-price="46.75"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
+            </div>
 
-            <article class="product-card" data-category="protein" data-brand="vanguard" data-flavour="vanilla" data-price="64.99">
-                <a href="#" class="product-image-link" aria-label="View protein powder">
-                    <img src="images/whey6-removebg-preview.png" alt="Protein powder product">
-                </a>
-                <h3>Vanguard Core Whey Complex - 5 lbs</h3>
-                <p class="product-price">$64.99</p>
-            </article>
+            <div class="product-card" data-category="protein" data-brand="vanguard" data-flavour="vanilla" data-price="64.99">
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/whey6-removebg-preview.png" alt="Vanguard"></div>
+                <div class="card-body">
+                    <h4>Vanguard Core Whey Complex - 5 lbs</h4>
+                    <p class="desc">Advanced multi-phase protein complex for all-day recovery.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$64.99</span>
+                        <button class="add-to-cart-btn" data-name="Vanguard Core Whey Complex - 5 lbs" data-price="64.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="product-card" data-category="protein" data-brand="biofuel" data-flavour="unflavoured" data-price="29.99">
-                <img src="images/whey4-removebg-preview.png" alt="Protein">
-                <h4>BioFuel Native Whey Concentrate - 1 kg</h4>
-                <p>$29.99</p>
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/whey4-removebg-preview.png" alt="BioFuel"></div>
+                <div class="card-body">
+                    <h4>BioFuel Native Whey Concentrate - 1 kg</h4>
+                    <p class="desc">Uncompromised native whey concentrate rich in amino acids.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$29.99</span>
+                        <button class="add-to-cart-btn" data-name="BioFuel Native Whey Concentrate - 1 kg" data-price="29.99"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-card" data-category="protein" data-brand="zenith" data-flavour="chocolate" data-price="18.50">
-                <img src="images/whey3-removebg-preview.png" alt="Protein">
-                <h4>Zenith Performance Plant & Whey Blend - 450g</h4>
-                <p>$18.50</p>
+                <span class="badge">PROTEIN</span>
+                <div class="img-container"><img src="images/whey3-removebg-preview.png" alt="Zenith"></div>
+                <div class="card-body">
+                    <h4>Zenith Performance Plant &amp; Whey Blend - 450g</h4>
+                    <p class="desc">Hybrid plant and whey formulation for complete nutrition.</p>
+                    <div class="card-footer-row">
+                        <span class="price">\$18.50</span>
+                        <button class="add-to-cart-btn" data-name="Zenith Performance Plant & Whey Blend - 450g" data-price="18.50"><i class="fa-solid fa-cart-shopping"></i> Add</button>
+                    </div>
+                </div>
             </div>
 
-            <p id="no-results" style="display: none; color: #ccc;">No products match the selected filters.</p>
-
+            <p id="no-results" style="display: none; color: #8a99ad; grid-column: 1 / -1; text-align: center; padding: 60px 0; font-size: 1.1rem;">No products match the selected filters.</p>
         </div>
-
-        </section>
 
     </div>
 </main>
+
+<!-- Cart Sidebar Modal Overlay -->
+<div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h2>Your Shopping Cart</h2>
+            <button id="close-cart" class="close-cart-btn">&times;</button>
+        </div>
+        <div id="cart-items-container" class="cart-items-container">
+            <p class="empty-cart-msg">Your cart is currently empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-price">\$0.00</span>
+            </div>
+            <a href="cart.html" class="checkout-btn" style="text-align: center; text-decoration: none; display: block;">Proceed to Checkout</a>
+        </div>
+    </div>
+</div>
 
 <footer>
     <div class="footer-item">
         <i class="fa-solid fa-truck-fast"></i>
         <div>
             <h4>FAST AND FREE SHIPPING</h4>
-            <p>On orders over $75</p>
+            <p>On orders over \$75</p>
         </div>
     </div>
-
     <div class="footer-item">
         <i class="fa-solid fa-shield"></i>
         <div>
@@ -240,7 +312,6 @@
             <p>Original products only</p>
         </div>
     </div>
-
     <div class="footer-item">
         <i class="fa-solid fa-rotate-left"></i>
         <div>
@@ -248,7 +319,6 @@
             <p>30-day return policy</p>
         </div>
     </div>
-
     <div class="footer-item">
         <i class="fa-solid fa-headset"></i>
         <div>
@@ -257,8 +327,195 @@
         </div>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        const priceRange = document.getElementById('price-range');
+        const priceMaximum = document.getElementById('price-maximum');
+        const clearBtn = document.getElementById('clear-filters');
+        const categoryLinks = document.querySelectorAll('.category-link');
+        const brandCheckboxes = document.querySelectorAll('input[name="brand"]');
+        const flavourCheckboxes = document.querySelectorAll('input[name="flavour"]');
+        const productCards = document.querySelectorAll('.product-card');
+        const noResultsMsg = document.getElementById('no-results');
 
-<script src="products.js"></script>
+        // Cart Elements
+        const cartToggleBtn = document.getElementById('cart-toggle-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartTotalPriceSpan = document.getElementById('cart-total-price');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
+        // Load cart from localStorage if it exists
+        let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
+        let currentCategory = 'all';
+
+        // Initial UI sync for cart badge
+        updateCartUI();
+
+        function filterProducts() {
+            if (!searchInput) return;
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const maxPrice = parseFloat(priceRange.value);
+
+            const selectedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+            const selectedFlavours = Array.from(flavourCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+            let visibleCount = 0;
+
+            productCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const brand = card.getAttribute('data-brand');
+                const flavour = card.getAttribute('data-flavour');
+                const price = parseFloat(card.getAttribute('data-price'));
+                const titleElement = card.querySelector('h4') || card.querySelector('h3');
+                const titleText = titleElement ? titleElement.textContent.toLowerCase() : '';
+
+                const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+                const matchesSearch = (searchTerm === '' || titleText.includes(searchTerm));
+                const matchesPrice = (price <= maxPrice);
+                const matchesBrand = (selectedBrands.length === 0 || selectedBrands.includes(brand));
+                const matchesFlavour = (selectedFlavours.length === 0 || selectedFlavours.includes(flavour));
+
+                if (matchesCategory && matchesSearch && matchesPrice && matchesBrand && matchesFlavour) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (noResultsMsg) {
+                noResultsMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
+            }
+        }
+
+        if (searchInput) searchInput.addEventListener('input', filterProducts);
+        if (priceRange) {
+            priceRange.addEventListener('input', (e) => {
+                priceMaximum.textContent = '\$' + e.target.value;
+                filterProducts();
+            });
+        }
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                categoryLinks.forEach(l => l.parentElement.classList.remove('selected'));
+                link.parentElement.classList.add('selected');
+                currentCategory = link.getAttribute('data-category');
+                filterProducts();
+            });
+        });
+
+        brandCheckboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+        flavourCheckboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                priceRange.value = 150;
+                priceMaximum.textContent = '\$150';
+                brandCheckboxes.forEach(cb => cb.checked = false);
+                flavourCheckboxes.forEach(cb => cb.checked = false);
+                currentCategory = 'all';
+                categoryLinks.forEach(l => l.parentElement.classList.remove('selected'));
+                const allCat = document.querySelector('.category-link[data-category="all"]');
+                if (allCat) allCat.parentElement.classList.add('selected');
+                filterProducts();
+            });
+        }
+
+        // Cart Functionality & LocalStorage Sync
+        function updateCartUI() {
+            if (!cartCountSpan) return;
+
+            cartCountSpan.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+            // Save to localStorage so cart.html (checkout) can read it
+            localStorage.setItem('fitTrackCart', JSON.stringify(cart));
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Your cart is currently empty.</p>';
+                cartTotalPriceSpan.textContent = '\$0.00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `
+                <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #1f2937; padding-bottom: 10px;">
+                    <div class="cart-item-info">
+                        <h4 style="font-size: 0.85rem; color: #fff; margin-bottom: 3px;">${item.name}</h4>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                    <div class="cart-item-actions" style="display: flex; align-items: center; gap: 8px;">
+                        <button onclick="changeQty(${index}, -1)" style="background: #1f2937; color: #fff; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer;">-</button>
+                        <span style="font-size: 0.85rem;">${item.quantity}</span>
+                        <button onclick="changeQty(${index}, 1)" style="background: #1f2937; color: #fff; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer;">+</button>
+                        <button class="remove-btn" onclick="removeItem(${index})" style="background: transparent; color: #ef4444; border: none; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+            cartTotalPriceSpan.textContent = '\$' + total.toFixed(2);
+        }
+
+        window.changeQty = function(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        window.removeItem = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        addToCartButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.getAttribute('data-name');
+                const price = parseFloat(btn.getAttribute('data-price'));
+                const img = btn.getAttribute('data-img') || 'images/standard.png';
+
+                const existing = cart.find(item => item.name === name);
+                if (existing) {
+                    existing.quantity++;
+                } else {
+                    cart.push({ name, price, quantity: 1, img });
+                }
+                updateCartUI();
+                if (cartModal) cartModal.style.display = 'flex';
+            });
+        });
+
+        if (cartToggleBtn && cartModal && closeCartBtn) {
+            cartToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                cartModal.style.display = 'flex';
+            });
+
+            closeCartBtn.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

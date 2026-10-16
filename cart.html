@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fit Track - Products</title>
+    <title>Fit Track - Checkout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="cart.css">
@@ -17,13 +17,7 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li class="dropdown">
-                        <a href="products.html" class="active">Products <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="equipment.html">Equipment</a></li>
-                            <li><a href="supplements.html">Supplements</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="products.html">Products</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -35,7 +29,10 @@
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <a href="login.html" class="icon-link"><i class="fa-regular fa-user"></i></a>
-                <a href="cart.html" class="icon-link"><i class="fa-solid fa-bag-shopping"></i></a>
+                <button id="cart-toggle-btn" class="icon-link" type="button">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </button>
             </div>
         </div>
     </div>
@@ -45,130 +42,251 @@
     <div class="header-title">CHECKOUT</div>
 
     <div class="steps-bar">
-        <span class="step active">1.SHIPPING</span>
+        <span class="step active">1. SHIPPING</span>
         <div class="step-line"></div>
-        <span class="step">2.PAYMENT</span>
+        <span class="step">2. PAYMENT</span>
         <div class="step-line"></div>
-        <span class="step">3.REVIEW</span>
+        <span class="step">3. REVIEW</span>
     </div>
 
     <div class="checkout-container">
 
+        <!-- Left Side: Shipping Form -->
         <div class="checkout-form">
             <div class="section-title">SHIPPING INFORMATION</div>
 
-            <form>
+            <form id="checkout-form">
                 <div class="form-group">
-                    <input type="text" placeholder="Full Name">
+                    <input type="text" placeholder="Full Name" required>
                 </div>
 
                 <div class="form-group">
-                    <input type="email" placeholder="Email Address">
+                    <input type="email" placeholder="Email Address" required>
                 </div>
 
                 <div class="form-group">
-                    <input type="tel" placeholder="Phone Number">
+                    <input type="tel" placeholder="Phone Number" required>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" placeholder="Addresses">
+                    <input type="text" placeholder="Street Address" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="text" placeholder="City">
+                        <input type="text" placeholder="City" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Postal Code">
+                        <input type="text" placeholder="Postal Code" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <select>
+                    <select required>
                         <option value="" disabled selected hidden>Country</option>
                         <option value="US">United States</option>
                         <option value="CA">Canada</option>
                         <option value="UK">United Kingdom</option>
+                        <option value="MK">North Macedonia</option>
                     </select>
                 </div>
 
                 <div class="shipping-methods">
                     <div class="section-title">SHIPPING METHOD</div>
 
-                    <div class="shipping-option selected">
-                        <div class="shipping-left">
-                            <div class="radio-custom"></div>
+                    <label class="shipping-option selected" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <div class="shipping-left" style="display: flex; align-items: center; gap: 12px;">
+                            <input type="radio" name="shipping" value="4.99" checked style="accent-color: #f59e0b;">
                             <div>
                                 <div class="shipping-title">STANDARD SHIPPING</div>
                                 <div class="shipping-desc">3-5 business days</div>
                             </div>
                         </div>
-                        <div class="shipping-price">$4.99</div>
-                    </div>
+                        <div class="shipping-price">\$4.99</div>
+                    </label>
 
-                    <div class="shipping-option">
-                        <div class="shipping-left">
-                            <div class="radio-unselected"></div>
+                    <label class="shipping-option" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <div class="shipping-left" style="display: flex; align-items: center; gap: 12px;">
+                            <input type="radio" name="shipping" value="9.99" style="accent-color: #f59e0b;">
                             <div>
-                                <div class="shipping-title unselected">EXPRESS SHIPPING</div>
+                                <div class="shipping-title">EXPRESS SHIPPING</div>
                                 <div class="shipping-desc">1-2 business days</div>
                             </div>
                         </div>
-                        <div class="shipping-price unselected">$9.99</div>
-                    </div>
+                        <div class="shipping-price">\$9.99</div>
+                    </label>
                 </div>
 
-                <button type="button" class="btn-submit">CONTINUE TO PAYMENT</button>
+                <button type="submit" class="btn-submit" style="margin-top: 25px;">CONTINUE TO PAYMENT</button>
             </form>
         </div>
 
+        <!-- Right Side: Dynamic Order Summary -->
         <div class="summary-card">
             <div class="summary-title">ORDER SUMMARY</div>
 
-            <div class="cart-item">
-                <img src="images/standard.png" alt="Optimum Nutrition Whey" class="item-image">
-                <div class="item-details">
-                    <div class="item-name">Optimum Nutrition Gold Standard Whey</div>
-                    <div class="item-subtext">2.27 kg / Chocolate</div>
-                </div>
-                <div class="item-price-info">
-                    <div class="item-price">$54.99</div>
-                    <div class="item-qty">Qty: 1</div>
-                </div>
-            </div>
-
-            <div class="cart-item">
-                <img src="images/creatine.png" alt="Calvexa Creatine" class="item-image">
-                <div class="item-details">
-                    <div class="item-name">Calvexa Nutrition Micronized Creatine Monohydrate</div>
-                    <div class="item-subtext">250g / Unflavored Powder</div>
-                </div>
-                <div class="item-price-info">
-                    <div class="item-price">$19.99</div>
-                    <div class="item-qty">Qty: 1</div>
-                </div>
+            <!-- Dynamic items container injected via JavaScript -->
+            <div id="checkout-items-list" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; max-height: 350px; overflow-y: auto;">
+                <p id="empty-checkout-msg" style="color: #9ca3af; text-align: center; font-size: 0.9rem;">Your cart is empty.</p>
             </div>
 
             <div class="summary-divider"></div>
 
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span>$74.98</span>
+                <span id="summary-subtotal">\$0.00</span>
             </div>
             <div class="summary-row">
                 <span>Shipping</span>
-                <span>$4.99</span>
+                <span id="summary-shipping">\$4.99</span>
             </div>
 
             <div class="summary-divider"></div>
 
             <div class="summary-row total">
                 <span>TOTAL</span>
-                <span class="total-price">$79.97</span>
+                <span id="summary-total" class="total-price">\$4.99</span>
             </div>
         </div>
     </div>
 </main>
 
+<!-- Sliding Cart Drawer Modal -->
+<div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h2>Your Shopping Cart</h2>
+            <button id="close-cart" class="close-cart-btn">&times;</button>
+        </div>
+        <div id="cart-items-container" class="cart-items-container">
+            <p class="empty-cart-msg">Your cart is currently empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-price">\$0.00</span>
+            </div>
+            <a href="cart.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-item">
+        <i class="fa-solid fa-truck-fast"></i>
+        <div>
+            <h4>FAST AND FREE SHIPPING</h4>
+            <p>On orders over \$75</p>
+        </div>
+    </div>
+    <div class="footer-item">
+        <i class="fa-solid fa-shield"></i>
+        <div>
+            <h4>100% AUTHENTIC</h4>
+            <p>Original products only</p>
+        </div>
+    </div>
+    <div class="footer-item">
+        <i class="fa-solid fa-rotate-left"></i>
+        <div>
+            <h4>EASY RETURNS</h4>
+            <p>30-day return policy</p>
+        </div>
+    </div>
+    <div class="footer-item">
+        <i class="fa-solid fa-headset"></i>
+        <div>
+            <h4>SUPPORT</h4>
+            <p>We're here to help</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Dynamic Cart & Checkout Logic Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Read actual items from localStorage (starts empty if no items were added)
+        let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
+
+        const itemsListContainer = document.getElementById('checkout-items-list');
+        const subtotalEl = document.getElementById('summary-subtotal');
+        const shippingEl = document.getElementById('summary-shipping');
+        const totalEl = document.getElementById('summary-total');
+        const emptyMsg = document.getElementById('empty-checkout-msg');
+
+        function renderCheckoutSummary() {
+            itemsListContainer.innerHTML = '';
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                emptyMsg.style.display = 'block';
+                subtotalEl.textContent = '\$0.00';
+                shippingEl.textContent = '\$4.99';
+                totalEl.textContent = '\$4.99';
+                return;
+            } else {
+                emptyMsg.style.display = 'none';
+            }
+
+            cart.forEach(item => {
+                const itemTotal = (item.price || 0) * (item.qty || 1);
+                subtotal += itemTotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.style.cssText = "display: flex; align-items: center; gap: 15px;";
+                itemDiv.innerHTML = `
+                    <img src="${item.img || item.image || 'images/standard.png'}" alt="${item.name || 'Product'}" style="width: 55px; height: 55px; object-fit: contain; background: #1a1a1a; border-radius: 6px; padding: 4px;">
+                    <div style="flex: 1;">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 3px;">${item.name || 'Product'}</div>
+                        <div style="font-size: 0.75rem; color: #9ca3af;">${item.details || item.flavor || ''}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.9rem; font-weight: 700; color: #fff;">$${itemTotal.toFixed(2)}</div>
+                        <div style="font-size: 0.75rem; color: #9ca3af;">Qty: ${item.qty || 1}</div>
+                    </div>
+                `;
+                itemsListContainer.appendChild(itemDiv);
+            });
+
+            // Get selected shipping cost
+            const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+            let shippingCost = selectedShipping ? parseFloat(selectedShipping.value) : 4.99;
+
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            shippingEl.textContent = `$${shippingCost.toFixed(2)}`;
+            totalEl.textContent = `$${(subtotal + shippingCost).toFixed(2)}`;
+        }
+
+        // Update totals when shipping method changes
+        document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+            radio.addEventListener('change', renderCheckoutSummary);
+        });
+
+        renderCheckoutSummary();
+
+        // Sliding Cart Drawer functionality for header icon
+        const cartToggleBtn = document.getElementById('cart-toggle-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart');
+
+        if (cartToggleBtn && cartModal && closeCartBtn) {
+            cartToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                cartModal.style.display = 'flex';
+            });
+
+            closeCartBtn.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
