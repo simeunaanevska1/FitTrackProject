@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resultsCount) resultsCount.textContent = `Showing ${visible} of ${cards.length} results`;
     }
 
-    // Category links filter in place instead of opening a separate page
     categoryLinks.forEach(link => {
         link.addEventListener('click', event => {
             event.preventDefault();

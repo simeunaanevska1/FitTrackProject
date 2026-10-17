@@ -43,7 +43,6 @@
 
     <div class="products-layout-grid">
 
-        <!-- Sidebar / Filters -->
         <aside class="sidebar">
             <div class="categories">
                 <h3>CATEGORIES</h3>
@@ -112,7 +111,6 @@
             </div>
         </aside>
 
-        <!-- Product Grid -->
         <div class="products-grid" id="products-grid-container">
 
             <div class="product-card" data-category="protein" data-brand="cellucor" data-flavour="vanilla" data-price="59.99">
@@ -277,7 +275,6 @@
     </div>
 </main>
 
-<!-- Cart Sidebar Modal Overlay -->
 <div id="cart-modal" class="cart-modal">
     <div class="cart-content">
         <div class="cart-header">
@@ -348,11 +345,9 @@
         const cartTotalPriceSpan = document.getElementById('cart-total-price');
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-        // Load cart from localStorage if it exists
         let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
         let currentCategory = 'all';
 
-        // Initial UI sync for cart badge
         updateCartUI();
 
         function filterProducts() {
@@ -428,13 +423,11 @@
             });
         }
 
-        // Cart Functionality & LocalStorage Sync
         function updateCartUI() {
             if (!cartCountSpan) return;
 
             cartCountSpan.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-            // Save to localStorage so cart.html (checkout) can read it
             localStorage.setItem('fitTrackCart', JSON.stringify(cart));
 
             if (cart.length === 0) {

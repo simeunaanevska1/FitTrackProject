@@ -11,12 +11,8 @@
 
 <header id="header">
     <div class="header-container">
-        <!-- Left Side: Logo and Login/Profile Link -->
         <div class="header-left-group" style="display: flex; align-items: center; gap: 25px;">
             <a href="index.html" class="logo">FIT <span class="logo-flash"><i class="fa-solid fa-bolt"></i></span> TRACK</a>
-
-            <!-- Login / Account text tab next to the logo -->
-            <a href="login.html" class="nav-login-link" style="color: #9ca3af; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Login / Register</a>
         </div>
 
         <div class="header-navigation-block">
@@ -35,7 +31,6 @@
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
 
-                <!-- Sliding Cart Button Trigger -->
                 <button id="cart-toggle-btn" class="icon-link" type="button">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span id="cart-count">0</span>
@@ -75,7 +70,6 @@
     </div>
 </main>
 
-<!-- Sliding Cart Drawer Modal -->
 <div id="cart-modal" class="cart-modal">
     <div class="cart-content">
         <div class="cart-header">
@@ -141,7 +135,6 @@
         const productCards = document.querySelectorAll('.product-card');
         const noResultsMsg = document.getElementById('no-results');
 
-        // Cart Elements
         const cartToggleBtn = document.getElementById('cart-toggle-btn');
         const cartModal = document.getElementById('cart-modal');
         const closeCartBtn = document.getElementById('close-cart');
@@ -150,11 +143,9 @@
         const cartTotalPriceSpan = document.getElementById('cart-total-price');
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-        // Load cart from localStorage if it exists
         let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
         let currentCategory = 'all';
 
-        // Initial UI sync for cart badge
         updateCartUI();
 
         function filterProducts() {
@@ -230,13 +221,11 @@
             });
         }
 
-        // Cart Functionality & LocalStorage Sync
         function updateCartUI() {
             if (!cartCountSpan) return;
 
             cartCountSpan.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-            // Save to localStorage so cart.html (checkout) can read it
             localStorage.setItem('fitTrackCart', JSON.stringify(cart));
 
             if (cart.length === 0) {

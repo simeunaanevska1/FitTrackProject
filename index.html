@@ -12,7 +12,7 @@
 <header id="header">
 	<div class="header-container">
 		<a href="index.html" class="logo">FIT <span class="logo-flash"><i class="fa-solid fa-bolt"></i></span> TRACK</a>
-
+		<a href="login.html" class="nav-login-link" style="color: #9ca3af; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Login / Register</a>
 		<div class="header-navigation-block">
 			<nav>
 				<ul>
@@ -53,7 +53,6 @@
 	</section>
 </main>
 
-<!-- Sliding Cart Drawer Modal -->
 <div id="cart-modal" class="cart-modal">
 	<div class="cart-content">
 		<div class="cart-header">
@@ -127,11 +126,9 @@
 		const cartTotalPriceSpan = document.getElementById('cart-total-price');
 		const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-		// Load cart from localStorage if it exists
 		let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
 		let currentCategory = 'all';
 
-		// Initial UI sync for cart badge
 		updateCartUI();
 
 		function filterProducts() {
@@ -207,13 +204,11 @@
 			});
 		}
 
-		// Cart Functionality & LocalStorage Sync
 		function updateCartUI() {
 			if (!cartCountSpan) return;
 
 			cartCountSpan.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-			// Save to localStorage so cart.html (checkout) can read it
 			localStorage.setItem('fitTrackCart', JSON.stringify(cart));
 
 			if (cart.length === 0) {

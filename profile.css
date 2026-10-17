@@ -1,4 +1,3 @@
-/* Base Reset & Variables */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,7 +13,6 @@ body {
     flex-direction: column;
 }
 
-/* Header Styles */
 #header {
     background-color: #111827;
     border-bottom: 1px solid #1f2937;
@@ -130,7 +128,6 @@ nav ul li a:hover, nav ul li a.active {
     border-radius: 50%;
 }
 
-/* Page Content & Profile Layout */
 .page-content {
     max-width: 1300px;
     margin: 0 auto;
@@ -195,7 +192,6 @@ nav ul li a:hover, nav ul li a.active {
     margin-bottom: 30px;
 }
 
-/* Stats Row */
 .profile-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -223,7 +219,6 @@ nav ul li a:hover, nav ul li a.active {
     color: #9ca3af;
 }
 
-/* Action Buttons */
 .profile-actions {
     display: flex;
     gap: 15px;
@@ -265,7 +260,6 @@ nav ul li a:hover, nav ul li a.active {
     transform: translateY(-1px);
 }
 
-/* Cart Slide-Out Modal Drawer */
 .cart-modal {
     display: none;
     position: fixed;
@@ -359,7 +353,6 @@ nav ul li a:hover, nav ul li a.active {
     background-color: #d97706;
 }
 
-/* Footer */
 footer {
     background-color: #111827;
     border-top: 1px solid #1f2937;
@@ -395,7 +388,6 @@ footer {
     color: #9ca3af;
 }
 
-/* Responsive */
 @media (max-width: 640px) {
     .profile-actions {
         flex-direction: column;

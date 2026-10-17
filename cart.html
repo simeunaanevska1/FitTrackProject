@@ -51,7 +51,6 @@
 
     <div class="checkout-container">
 
-        <!-- Left Side: Shipping Form -->
         <div class="checkout-form">
             <div class="section-title">SHIPPING INFORMATION</div>
 
@@ -121,7 +120,6 @@
             </form>
         </div>
 
-        <!-- Right Side: Dynamic Order Summary -->
         <div class="summary-card">
             <div class="summary-title">ORDER SUMMARY</div>
 
@@ -151,7 +149,6 @@
     </div>
 </main>
 
-<!-- Sliding Cart Drawer Modal -->
 <div id="cart-modal" class="cart-modal">
     <div class="cart-content">
         <div class="cart-header">
@@ -202,10 +199,8 @@
     </div>
 </footer>
 
-<!-- Dynamic Cart & Checkout Logic Script -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Read actual items from localStorage (starts empty if no items were added)
         let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
 
         const itemsListContainer = document.getElementById('checkout-items-list');
@@ -249,7 +244,6 @@
                 itemsListContainer.appendChild(itemDiv);
             });
 
-            // Get selected shipping cost
             const selectedShipping = document.querySelector('input[name="shipping"]:checked');
             let shippingCost = selectedShipping ? parseFloat(selectedShipping.value) : 4.99;
 
@@ -258,14 +252,12 @@
             totalEl.textContent = `$${(subtotal + shippingCost).toFixed(2)}`;
         }
 
-        // Update totals when shipping method changes
         document.querySelectorAll('input[name="shipping"]').forEach(radio => {
             radio.addEventListener('change', renderCheckoutSummary);
         });
 
         renderCheckoutSummary();
 
-        // Sliding Cart Drawer functionality for header icon
         const cartToggleBtn = document.getElementById('cart-toggle-btn');
         const cartModal = document.getElementById('cart-modal');
         const closeCartBtn = document.getElementById('close-cart');

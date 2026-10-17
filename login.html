@@ -12,7 +12,6 @@
 
 <header id="header">
     <div class="header-container">
-        <!-- Left Side: Logo & Login Tab -->
         <div class="header-left-group" style="display: flex; align-items: center; gap: 25px;">
             <a href="index.html" class="logo">FIT <span class="logo-flash"><i class="fa-solid fa-bolt"></i></span> TRACK</a>
             <a href="login.html" class="nav-login-link active" style="color: #f59e0b; text-decoration: none; font-weight: 500; font-size: 0.95rem;">Login / Register</a>
@@ -34,7 +33,6 @@
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
 
-                <!-- Sliding Cart Button Trigger -->
                 <button id="cart-toggle-btn" class="icon-link" type="button" style="background:none; border:none; cursor:pointer; position:relative;">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span id="cart-count">0</span>
@@ -167,7 +165,7 @@
     </div>
 </footer>
 
-<!-- Sliding Cart Drawer Modal -->
+
 <div id="cart-modal" class="cart-modal">
     <div class="cart-content">
         <div class="cart-header">
@@ -187,7 +185,6 @@
     </div>
 </div>
 
-<!-- Cart Sidebar Control Script -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const cartToggleBtn = document.getElementById('cart-toggle-btn');

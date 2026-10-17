@@ -13,7 +13,6 @@ body {
     flex: 1;
 }
 
-/* Header Container */
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -22,7 +21,6 @@ body {
     background-color: #000000;
 }
 
-/* Logo */
 #header .logo {
     font-family: 'Impact', 'Arial Black', sans-serif;
     font-weight: 900;
@@ -38,14 +36,12 @@ body {
     margin: 0 2px;
 }
 
-/* Navigation Block */
 .header-navigation-block {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-/* Nav Menu (Absolute positioning removed) */
 #header nav > ul {
     display: flex;
     align-items: center;
@@ -60,7 +56,6 @@ body {
     list-style: none;
 }
 
-/* Dropdown Navigation */
 #header li.dropdown {
     position: relative;
 }
@@ -98,7 +93,6 @@ body {
     display: block;
 }
 
-/* Links & States */
 #header a {
     text-decoration: none;
 }
@@ -116,7 +110,6 @@ body {
     color: #ff8c2b;
 }
 
-/* Search Box & Right Icons */
 .header-right {
     display: flex;
     align-items: center;

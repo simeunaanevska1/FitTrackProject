@@ -30,7 +30,6 @@
                 </div>
                 <a href="login.html" class="icon-link"><i class="fa-regular fa-user"></i></a>
 
-                <!-- Sliding Cart Button Trigger -->
                 <button id="cart-toggle-btn" class="icon-link" type="button">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span id="cart-count">0</span>
@@ -133,7 +132,6 @@
     </section>
 </main>
 
-<!-- Sliding Cart Drawer Modal -->
 <div id="cart-modal" class="cart-modal">
     <div class="cart-content">
         <div class="cart-header">
@@ -199,7 +197,6 @@
         const productCards = document.querySelectorAll('.product-card');
         const noResultsMsg = document.getElementById('no-results');
 
-        // Cart Elements
         const cartToggleBtn = document.getElementById('cart-toggle-btn');
         const cartModal = document.getElementById('cart-modal');
         const closeCartBtn = document.getElementById('close-cart');
@@ -208,11 +205,9 @@
         const cartTotalPriceSpan = document.getElementById('cart-total-price');
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-        // Load cart from localStorage if it exists
         let cart = JSON.parse(localStorage.getItem('fitTrackCart')) || [];
         let currentCategory = 'all';
 
-        // Initial UI sync for cart badge
         updateCartUI();
 
         function filterProducts() {
@@ -288,13 +283,11 @@
             });
         }
 
-        // Cart Functionality & LocalStorage Sync
         function updateCartUI() {
             if (!cartCountSpan) return;
 
             cartCountSpan.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-            // Save to localStorage so cart.html (checkout) can read it
             localStorage.setItem('fitTrackCart', JSON.stringify(cart));
 
             if (cart.length === 0) {

@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const USERS_KEY = "fitTrackUsers";
     const SESSION_KEY = "fitTrackCurrentUser";
 
-    // Display messages without changing the CSS layout.
     function showMessage(form, message, success = false) {
         let messageBox = form.querySelector(".auth-message");
 
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
         messageBox.style.color = success ? "#4ade80" : "#ff6b6b";
     }
 
-    // Read demo users from browser storage.
     function getUsers() {
         try {
             return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return email.trim().toLowerCase();
     }
 
-    // REGISTER
     registerForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -77,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Demo only: localStorage is not secure password storage.
         users.push({ name, email, password });
 
         try {
@@ -99,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
         registerForm.reset();
     });
 
-    // LOGIN
     loginForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -132,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         try {
-            // Remember me persists until cleared; otherwise use a tab session.
             if (rememberMe) {
                 localStorage.setItem(SESSION_KEY, session);
                 sessionStorage.removeItem(SESSION_KEY);
@@ -154,13 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
             true
         );
 
-        // Change "index.html" to "profile.html" here:
         setTimeout(() => {
             window.location.href = "profile.html";
         }, 1000);
     });
 
-    // SHOW / HIDE PASSWORD
     document.querySelectorAll(".toggle-password").forEach(button => {
         button.addEventListener("click", () => {
             const input = button.parentElement.querySelector("input");
